@@ -18,29 +18,47 @@ function getAllUglyVotes() {
     let uglyDocs = query(collection(db, "users"), where("ugliest", "!=", ""))
     getDocs(uglyDocs)
         .then((docs) => {
+            let uglyCount = {}
             docs.forEach(user => {
-               allUglyVotes.push(user.data().ugliest)
-               console.log(user.data().ugliest)
-               console.log("count")
+                let uglyVote = user.data().ugliest
+                uglyCount[uglyVote] = (uglyCount[uglyVote] || 0) + 1
+
             })
+            console.log(uglyCount);
         })
-        // .then(console.log(allUglyVotes))
         .catch((error) => console.error(error))
-        .finally(console.log(allUglyVotes))
 }
 
+function getAllFestiveVotes() {
+    let uglyDocs = query(collection(db, "users"), where("festive", "!=", ""))
+    getDocs(uglyDocs)
+        .then((docs) => {
+            let uglyCount = {}
+            docs.forEach(user => {
+                let uglyVote = user.data().festive
+                uglyCount[uglyVote] = (uglyCount[uglyVote] || 0) + 1
 
-// Vote counter
-function voteCounter(votesArray) {
-    let counts = {}
-    console.log(votesArray);
-    for (let i = 0; i < votesArray.length; i++) {
-        const element = votesArray[i];
-        console.log(element);
-    }
-    // votesArray.forEach(() => {console.log("item")})
-    // votesArray.forEach((x) => { counts[x] = (counts[x] || 0) + 1 })
-    // return counts
+            })
+            console.log(uglyCount);
+        })
+        .catch((error) => console.error(error))
+}
+
+function getAllTeamVotes() {
+    let uglyDocs = query(collection(db, "users"), where("team", "!=", ""))
+    getDocs(uglyDocs)
+        .then((docs) => {
+            let uglyCount = {}
+            docs.forEach(user => {
+                let uglyVote = user.data().team
+                uglyCount[uglyVote] = (uglyCount[uglyVote] || 0) + 1
+
+            })
+            console.log(uglyCount);
+        })
+        .catch((error) => console.error(error))
 }
 
 getAllUglyVotes()
+getAllFestiveVotes()
+getAllTeamVotes()
