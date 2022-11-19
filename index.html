@@ -5,17 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DPG Holiday Voting</title>
-    <script src="./script.js" type="module" defer></script>
+    <script src="./vote.js" type="module" defer></script>
+    <style>
+        .vote-select {
+            background-color: aquamarine;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>DPG Holiday Voting App</h1>
-    <section id="loggedOut">
-        <p>Sign In</p>
-        <input type="text" id="signIn">
-        <button id="signInButton">Sign In</button>
-    </section>
-    <scetion id="loggedIn">
-        You're logged in. Use the QR code of the person you want to vote for.
-    </scetion>
+    <h1>Vote for <span id="userTitle"></span></h1>
+    <div class="vote-select" id="ugliest">"Ugliest" Christmas Sweater</div>
+    <div class="vote-select" id="festive">Most Festive</div>
+    <div class="vote-select" id="team">Best Holiday Themed Team Ensemble</div>
 </body>
 </html>
