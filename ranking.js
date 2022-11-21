@@ -84,20 +84,22 @@ function getAllTeamVotesTable() {
 }
 
 
-// function getAllUglyVotes() {
-//     let uglyDocs = query(collection(db, "users"), where("ugliest", "!=", ""))
-//     getDocs(uglyDocs)
-//         .then((docs) => {
-//             let uglyCount = {}
-//             docs.forEach(user => {
-//                 let uglyVote = user.data().ugliest
-//                 uglyCount[uglyVote] = (uglyCount[uglyVote] || 0) + 1
 
-//             })
-//             console.log(uglyCount);
-//         })
-//         .catch((error) => console.error(error))
-// }
+function getAllUglyVotes() {
+    let uglyDocs = query(collection(db, "users"), where("ugliest", "!=", ""))
+    getDocs(uglyDocs)
+        .then((docs) => {
+            let uglyCount = {}
+            docs.forEach(user => {
+                let uglyVote = user.data().ugliest
+                uglyCount[uglyVote] = (uglyCount[uglyVote] || 0) + 1
+
+            })
+            //console.log(uglyCount);
+            return uglyCount
+        })
+        .catch((error) => console.error(error))
+}
 
 // function getAllFestiveVotes() {
 //     let uglyDocs = query(collection(db, "users"), where("festive", "!=", ""))
@@ -135,3 +137,4 @@ function getAllTeamVotesTable() {
 getAllUglyVotesTable()
 getAllFestiveVotesTable()
 getAllTeamVotesTable()
+

@@ -19,14 +19,8 @@ function uuid() {
     );
 }
 
-function setUser(userInput) {
-    setDoc(doc(db, "users", userInput), {
-    })
-    .then(() => {
-        localStorage.setItem('DPG-user', userInput)
-        console.log(`${userInput} set as current user`);
-    })
-}
+
+let currentUser = localStorage.getItem('DPG-user')
 
 if (localStorage.getItem('DPG-user')) {
     console.log(localStorage.getItem('DPG-user'));
@@ -36,22 +30,18 @@ if (localStorage.getItem('DPG-user')) {
     })
     .then(() => {
         localStorage.setItem('DPG-user', userId)
-        console.log(`${userInput} set as current user`);
+        currentUser = userId;
+        console.log(`${userId} set as current user`);
     })
 }
 
-const currentUser = localStorage.getItem('DPG-user')
 const urlParams = location.search;
-let orderRefId = urlParams.match(/(?![?refId=])[A-z0-9]{1,}/g)[0];
+const orderRefId = urlParams.match(/(?![?refId=])[A-z0-9]{1,}/g)[0];
 document.getElementById('userTitle').innerText = orderRefId
 
 const ugliestSweaterButton = document.getElementById('ugliest')
 const festiveButton = document.getElementById('festive')
 const teamButton = document.getElementById('team')
-
-
-console.log(orderRefId);
-// Make a call with 
 
 //EVENT LISTENERS
 ugliestSweaterButton.addEventListener("click", () => {ugliestVote()})
