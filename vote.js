@@ -36,12 +36,11 @@ if (localStorage.getItem('DPG-user')) {
     })
     .then(() => {
         localStorage.setItem('DPG-user', userId)
-        currentUser = userId
         console.log(`${userInput} set as current user`);
     })
 }
 
-let currentUser = localStorage.getItem('DPG-user')
+const currentUser = localStorage.getItem('DPG-user')
 const urlParams = location.search;
 let orderRefId = urlParams.match(/(?![?refId=])[A-z0-9]{1,}/g)[0];
 document.getElementById('userTitle').innerText = orderRefId
