@@ -9,7 +9,7 @@ const firebaseConfig = {
     storageBucket: "dpg-holiday-voting.appspot.com",
     messagingSenderId: "983551029046",
     appId: "1:983551029046:web:4749828d29b45c49010d97"
-  };
+};
 const app = initializeApp(firebaseConfig)
 const db = getFirestore()
 
@@ -28,16 +28,16 @@ if (currentUser) {
     let userId = uuid()
     setDoc(doc(db, "users", userId), {
     })
-    .then(() => {
-        localStorage.setItem('DPG-user', userId)
-        currentUser = userId;
-        console.log(`${userId} set as current user`);
-    })
+        .then(() => {
+            localStorage.setItem('DPG-user', userId)
+            currentUser = userId;
+            console.log(`${userId} set as current user`);
+        })
 }
 
 function uuid() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
 
@@ -66,21 +66,18 @@ function checkVote(category) {
     // <i class="fa-solid fa-check"></i>
     // <i class="fa-regular fa-square-check"></i>
     getDoc(doc(db, "users", currentUser))
-    .then((doc) => {
-        if (doc.data()[category] !== orderRefId) {
-            // If you didn't vote for this person
-        } else {
-            // If you voted for this person
-            document.getElementById(category).style.background = "#f2a900"
-            document.getElementById(category + "Check").innerHTML = "<i class='fa-regular fa-square-check'></i>"
-        }
-        document
-    })
+        .then((doc) => {
+            if (doc.data()[category] !== orderRefId) {
+                // If you didn't vote for this person
+            } else {
+                // If you voted for this person
+                document.getElementById(category).style.background = "#f2a900"
+                document.getElementById(category + "Check").innerHTML = "<i class='fa-regular fa-square-check'></i>"
+            }
+            document
+        })
 }
 
-checkVote("ugliest")
-checkVote("festive")
-checkVote("team")
 
 
 function votingConfirmation() {
@@ -88,8 +85,19 @@ function votingConfirmation() {
 }
 
 //EVENT LISTENERS
-ugliestSweaterButton.addEventListener("click", () => {ugliestVote()})
-festiveButton.addEventListener("click", () => { festiveVote()})
-teamButton.addEventListener("click", () => {teamVote()})
+if (ugliestSweaterButton) {
+    ugliestSweaterButton.addEventListener("click", () => { ugliestVote() })
+    checkVote("ugliest")
+}
+
+if (festiveButton) {
+    festiveButton.addEventListener("click", () => { festiveVote() })
+    checkVote("festive")
+}
+
+if (teamButton) {
+    teamButton.addEventListener("click", () => { teamVote() })
+    checkVote("team")
+}
 
 
