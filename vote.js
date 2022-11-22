@@ -61,20 +61,12 @@ function teamVote() {
 }
 
 function checkVote(category) {
-    // Did you already vote?
-    // We can check this with a firebase query
-    // <i class="fa-solid fa-check"></i>
-    // <i class="fa-regular fa-square-check"></i>
     getDoc(doc(db, "users", currentUser))
         .then((doc) => {
-            if (doc.data()[category] !== orderRefId) {
-                // If you didn't vote for this person
-            } else {
-                // If you voted for this person
-                document.getElementById(category).style.background = "#f2a900"
-                document.getElementById(category + "Check").innerHTML = "<i class='fa-regular fa-square-check'></i>"
-            }
-            document
+            if (doc.data()[category] !== orderRefId) return;
+            // If you voted for this person
+            document.getElementById(category).style.background = "#f2a900"
+            document.getElementById(category + "Check").innerHTML = "<i class='fa-regular fa-square-check'></i>"
         })
 }
 
