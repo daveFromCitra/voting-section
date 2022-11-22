@@ -13,9 +13,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const db = getFirestore()
 
-function getAllCategoryVotesTable(category) {
-    // Finds display table in HTML
-    const displayTable = document.getElementById(category)
+function getAllCategoryVotesGraph(category) {
+    // Finds corresponding graph area
     const ctx = document.getElementById(category);
 
     // Sets up the query, get all users who's CATEGORY in question isn't blank
@@ -29,8 +28,6 @@ function getAllCategoryVotesTable(category) {
                 // Adds to the count for a user
                 voteCount[voteVote] = (voteCount[voteVote] || 0) + 1
             })
-            // Sets the category table heading
-            let voteTableContent = '<tr><th>Contestant</th><th>Votes</th></tr>'
             // Sorts the list of contestants by vote count
             const sorted = Object.entries(voteCount)
                 .sort(([,a],[,b]) => b-a)
@@ -39,16 +36,19 @@ function getAllCategoryVotesTable(category) {
             let voteLabels = []
             let voteData = []
             for (const [key, value] of Object.entries(sorted)) {
-                // voteTableContent = voteTableContent + `<tr><td>${key}<td><td>${value}<td></tr>`
-                voteLabels.push(key),
-                voteData.push(value)
+                voteLabels.length < 5 ? voteLabels.push(key) : console.log(key)
+                voteData.length < 5 ? voteData.push(value) : console.log(value)
+                // voteLabels.push(key)
+                // voteData.push(value)
+
             }
+            // Sets up a new chart object from a class
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: voteLabels,
                     datasets: [{
-                        label: '# of Votes',
+                        label: 'Votes',
                         data: voteData,
                         borderWidth: 1
                     }]
@@ -57,16 +57,10 @@ function getAllCategoryVotesTable(category) {
 
                 }
             })
-            // Places the HTML table data into the DOM
-            displayTable.innerHTML = voteTableContent
         })
         .catch((error) => console.error(error))
 }
 
-function charting() {
-
-}
-
-getAllCategoryVotesTable('ugliest')
-getAllCategoryVotesTable('festive')
-getAllCategoryVotesTable('team')
+getAllCategoryVotesGraph('ugliest')
+getAllCategoryVotesGraph('festive')
+getAllCategoryVotesGraph('team')

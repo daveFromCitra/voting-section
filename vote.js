@@ -21,6 +21,7 @@ const urlParams = location.search;
 const orderRefId = urlParams.match(/(?![?refId=])[A-z0-9]{1,}/g)[0];
 document.getElementById('userTitle').innerText = orderRefId
 
+
 if (currentUser) {
     console.log(currentUser);
 } else {
@@ -43,14 +44,47 @@ function uuid() {
 
 function ugliestVote() {
     setDoc(doc(db, "users", currentUser), { ugliest: orderRefId }, { merge: true })
+    votingConfirmation()
+    checkVote("ugliest")
 }
 
 function festiveVote() {
     setDoc(doc(db, "users", currentUser), { festive: orderRefId }, { merge: true })
+    votingConfirmation()
+    checkVote("festive")
 }
 
 function teamVote() {
     setDoc(doc(db, "users", currentUser), { team: orderRefId }, { merge: true })
+    votingConfirmation()
+    checkVote("team")
+}
+
+function checkVote(category) {
+    // Did you already vote?
+    // We can check this with a firebase query
+    // <i class="fa-solid fa-check"></i>
+    // <i class="fa-regular fa-square-check"></i>
+    getDoc(doc(db, "users", currentUser))
+    .then((doc) => {
+        if (doc.data()[category] !== orderRefId) {
+            // If you didn't vote for this person
+        } else {
+            // If you voted for this person
+            document.getElementById(category).style.background = "#f2a900"
+            document.getElementById(category + "Check").innerHTML = "<i class='fa-regular fa-square-check'></i>"
+        }
+        document
+    })
+}
+
+checkVote("ugliest")
+checkVote("festive")
+checkVote("team")
+
+
+function votingConfirmation() {
+    document.getElementById("voteConfirmation").innerHTML = `You just voted for ${orderRefId}!`
 }
 
 //EVENT LISTENERS
