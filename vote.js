@@ -19,7 +19,8 @@ const teamButton = document.getElementById('team')
 let currentUser = localStorage.getItem('DPG-user')
 const urlParams = location.search;
 const orderRefId = urlParams.match(/(?![?refId=])[A-z0-9]{1,}/g)[0];
-document.getElementById('userTitle').innerText = orderRefId
+const userDisplay = orderRefId.replaceAll('_', ' ')
+document.getElementById('userTitle').innerText = userDisplay
 
 
 if (currentUser) {
